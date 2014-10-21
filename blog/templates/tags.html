@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <div class="row">
+        <div class="col-md-12">
+            <h2>{{ tags.name }}</h2>
+            {% for post in tags.posts.all %}
+                <li><h4> {{ post.title }}</h4></li>
+            {% endfor %}
+        </div>
+    </div>
+    <br>
+{% endblock main %}

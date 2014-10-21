@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    <h1>Analytics</h1>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table style="padding-right: 5px">
+                <tr>
+                    <th><h4>Page</h4></th>
+                    <th align="right"><h4>View Count</h4></th>
+                </tr>
+                {% for page in all_pages|dictsortreversed:"view.count" %}
+                    <tr>
+                        <td><a href="{% url 'view_page' page.id %}"><small>{{ page.url }}</small></a></td>
+                        <td align="right">{{ page.view.count }}</td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+{% endblock main %}

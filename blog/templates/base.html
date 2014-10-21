@@ -1,3 +1,5 @@
+{% load staticfiles %}
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -14,6 +16,7 @@
             <div class="header">
                 <ul class="nav nav-pills pull-right">
                     <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'main' %}">Analytics</a></li>
                     <li><a href="{% url 'about' %}">About</a></li>
                     <li><a href="{% url 'blog' %}">Blog</a></li>
                 </ul>
@@ -28,20 +31,48 @@
                 </div>
 
                 <div class="col-md-2">
-                    <div>Blog tags go here!</div>
+                    <h4>All tags</h4>
+                    {% for tag in all_tags %}
+                        <p><span class="label label-success">{{ tag.name }}</span> - ({{ tag.posts.count }})<p>
+                        <small><a href="{% url 'tags' tag.id %}">See posts with this tag</a></small></p>
+                    {% endfor %}
                 </div>
+
             </div>
 
             <hr>
 
             <div class="row">
-                <div class="col-md-12">Latest blog post goes here!</div>
+                <div class="col-md-6 well">
+                    <h3>Checkout our latest post!</h3>
+                    <h4>{{ latest_post.title }}</h4>
+                    <div>by {{ latest_post.author }} on {{ latest_post.created }}</div>
+                    <a href="{% url 'post' latest_post.pk %}">Read it!</a>
+                </div>
             </div>
 
             <hr>
 
             <div class="footer">
+                <div class="row">
+                    <div class="col-md-1">
+                        <small>Sponsored:</small>
+                    </div>
+
+                    <div class="col-md-5">
+                        <strong>
+                        {% for ad in all_ads %}
+                            <a href="{{ ad.url }}"><img height="50px" src="{% static ad.photo.url %}"></a>
+                            <br>
+                            <p>{{ ad.description }}</p>
+                        {% endfor %}
+                        </strong>
+                    </div>
+                </div>
+                <br>
+                <div class="pull-right">Welcome user from {{ location.city }}!</div>
                 <p>&copy; My Blog 2014</p>
+                <br>
             </div>
         </div>
     </body>
