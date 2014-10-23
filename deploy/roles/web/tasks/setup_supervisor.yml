@@ -12,10 +12,10 @@
 
 - name: Create the Supervisor conf file
   template: src=supervisor.conf.j2
-            dest=/etc/supervisor/conf.d/{{ project_name }}.conf.py
+            dest=/etc/supervisor/conf.d/{{ project_name }}.conf
 
 - name: Restart Supervisor
   supervisorctl: name={{ project_name }} state=restarted
 
 - name: Restart Supervisor Service
-  service: name=supervisor state=restarted
+  service: name=supervisor state=restarted sleep=3
